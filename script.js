@@ -8,7 +8,7 @@ const predictions = {
   7: ["Your insight will guide someone.", "🔮 You're a wise soul."],
   8: ["Great success lies ahead!", "🏆 Keep going—you’re unstoppable."],
   9: ["A beautiful change is near.", "🌈 Shine brighter than ever."],
-  10:["Today is your lucky star day!", "💫 You were made for dreams."]
+  10: ["Today is your lucky star day!", "💫 You were made for dreams."]
 };
 
 function revealPrediction() {
@@ -19,16 +19,36 @@ function revealPrediction() {
   if (num >= 1 && num <= 10) {
     const [fortune, message] = predictions[num];
     resultDiv.innerHTML = `<strong>📜 ${fortune}</strong><br><br><em>💖 ${message}</em>`;
+
+    // Play sound
     chime.currentTime = 0;
     chime.play();
 
-    const speech = new SpeechSynthesisUtterance(`${fortune}. ${message}`);
-    speech.pitch = 1.6;
-    speech.rate = 0.9;
-    speech.lang = 'en-US';
+    // Speak the message
+    const utterance = new SpeechSynthesisUtterance(`${fortune}. ${message}`);
+    utterance.pitch = 1.4;
+    utterance.rate = 1.0;
+    utterance.lang = 'en-US';
 
+    // Use a sweet female voice if available
     const voices = window.speechSynthesis.getVoices();
     const sweetVoice = voices.find(v =>
       v.name.includes("Google UK English Female") ||
       v.name.toLowerCase().includes("female") ||
-      v.name.toLowerCase().includes(" ​:contentReference[oaicite:0]{index=0}​
+      v.name.toLowerCase().includes("samantha")
+    );
+
+    if (sweetVoice) {
+      utterance.voice = sweetVoice;
+    }
+
+    window.speechSynthesis.speak(utterance);
+  } else {
+    resultDiv.innerHTML = "❗ Please enter a number between 1 and 10.";
+  }
+}
+
+// In case voices aren’t loaded yet
+window.speechSynthesis.onvoiceschanged = () => {
+  // Nothing needed here since we call getVoices() again on button click
+};
