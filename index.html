@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🌟 Magical Life Fortune Teller</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🔮 Pick Your Magical Number (1–10)</h1>
+
+  <div class="emoji-dancer">💃</div>
+
+  <div class="prediction-box">
+    <input type="number" id="userNumber" min="1" max="10" placeholder="1-10" />
+    <br />
+    <button onclick="revealPrediction()">Reveal My Fortune ✨</button>
+    <div id="result"></div>
+  </div>
+
+  <div class="footer">🌈 Believe in your magical journey 🌈</div>
+
+  <audio id="chime" src="https://cdn.pixabay.com/audio/2022/03/15/audio_f1f88e0c26.mp3" preload="auto"></audio>
+  <script src="script.js"></script>
+
+  <script>
+    // Sparkles from top
+    for (let i = 0; i < 60; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle');
+      sparkle.style.left = Math.random() * 100 + 'vw';
+      sparkle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      sparkle.style.opacity = Math.random();
+      document.body.appendChild(sparkle);
+    }
+
+    // Popper Confetti from sides
+    const colors = ['#ff4d4d', '#ffff66', '#66ff66', '#66ccff', '#ff99ff'];
+    for (let i = 0; i < 50; i++) {
+      const popper = document.createElement('div');
+      popper.classList.add('popper');
+      popper.style.left = Math.random() < 0.5 ? '-10px' : '100vw';
+      popper.style.setProperty('--xDir', (Math.random() < 0.5 ? 1 : -1) * (50 + Math.random() * 100) + 'vw');
+      popper.style.background = colors[Math.floor(Math.random() * colors.length)];
+      popper.style.animationDuration = (3 + Math.random() * 3) + 's';
+      popper.style.opacity = Math.random();
+      document.body.appendChild(popper);
+    }
+  </script>
+</body>
+</html>
